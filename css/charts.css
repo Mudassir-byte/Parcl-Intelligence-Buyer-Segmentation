@@ -1,0 +1,16 @@
+/**
+ * charts.css
+ * Sizing rules for Chart.js canvases. Chart.js renders to <canvas>, so
+ * color/typography for the charts themselves is configured in js/charts.js
+ * (reading the same CSS custom properties at runtime) rather than here -
+ * this file only controls layout dimensions.
+ */
+
+.chart-h-sm { height: 220px; }
+.chart-h-md { height: 300px; }
+.chart-h-lg { height: 360px; }
+
+@media (max-width: 720px) {
+  .chart-h-md { height: 260px; }
+  .chart-h-lg { height: 300px; }
+}

@@ -1,0 +1,82 @@
+/**
+ * animations.css
+ * Motion is intentionally limited to two categories:
+ *   1) ONE orchestrated page-load sequence (sidebar, topbar, then the KPI
+ *      strip stagger in) - not a fade-in-on-scroll effect repeated on
+ *      every section.
+ *   2) Interactions that respond to something the person does (expanding a
+ *      cluster card, dragging a slider, hovering a button) - motion that
+ *      shows what changed, not decoration.
+ * All keyframes are skipped under prefers-reduced-motion (see the guard at
+ * the bottom of this file and the --dur-* zeroing in variables.css).
+ */
+
+@keyframes load-slide-right {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes load-slide-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes load-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.js-load .sidebar {
+  animation: load-slide-right var(--dur-slow) var(--ease-standard) both;
+}
+.js-load .topbar {
+  animation: load-slide-down var(--dur-med) var(--ease-standard) both;
+}
+.js-load .kpi-card {
+  animation: load-rise var(--dur-med) var(--ease-standard) both;
+}
+.js-load .kpi-card:nth-child(1) { animation-delay: 80ms; }
+.js-load .kpi-card:nth-child(2) { animation-delay: 140ms; }
+.js-load .kpi-card:nth-child(3) { animation-delay: 200ms; }
+.js-load .kpi-card:nth-child(4) { animation-delay: 260ms; }
+.js-load .kpi-card:nth-child(5) { animation-delay: 320ms; }
+
+/* Hover lift used only on genuinely clickable summary elements. */
+.cluster-card-header:hover { background: var(--c-panel-hover); }
+
+/* Smooth number transitions for KPI counters (driven by JS updating the
+   textContent on each frame - this class just ensures no layout jump). */
+.kpi-value { font-variant-numeric: tabular-nums; }
+
+/* Predictor result reveal - triggered by user submitting the form. */
+@keyframes result-pop {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.result-panel.is-revealed .result-summary {
+  animation: result-pop var(--dur-med) var(--ease-standard) both;
+}
+
+/* Sidebar drawer open/close (mobile) */
+.sidebar-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-standard);
+  z-index: 39;
+}
+body.nav-open .sidebar-scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-load .sidebar,
+  .js-load .topbar,
+  .js-load .kpi-card,
+  .result-panel.is-revealed .result-summary {
+    animation: none;
+  }
+}

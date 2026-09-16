@@ -1,0 +1,369 @@
+/**
+ * components.css
+ * Reusable UI pieces: KPI cards, buttons, badges, cluster cards, forms,
+ * tabs, toggle switch, tooltips, notices.
+ */
+
+/* ---------------- KPI cards ---------------- */
+.kpi-card {
+  background: var(--c-panel);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.kpi-label {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.kpi-value {
+  font-family: var(--font-mono);
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-value .unit {
+  font-size: 1rem;
+  color: var(--c-text-faint);
+  margin-left: 2px;
+}
+
+.kpi-sub {
+  font-size: var(--fs-micro);
+  color: var(--c-text-faint);
+}
+
+/* ---------------- Buttons ---------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--c-border);
+  background: var(--c-panel);
+  color: var(--c-text);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: var(--fs-small);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.btn:hover { background: var(--c-panel-hover); }
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+  background: var(--c-brand);
+  border-color: var(--c-brand);
+  color: #211605;
+}
+.btn-primary:hover { background: #c19d67; }
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-panel);
+  cursor: pointer;
+  color: var(--c-text-muted);
+  transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
+}
+.icon-btn:hover { background: var(--c-panel-hover); color: var(--c-text); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+/* ---------------- Badges ---------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+}
+.badge-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.badge-flag {
+  border-color: var(--c-flag); /* fallback for browsers without color-mix() */
+  border-color: color-mix(in srgb, var(--c-flag) 50%, transparent);
+  color: var(--c-flag);
+}
+.badge-positive {
+  border-color: var(--c-positive);
+  border-color: color-mix(in srgb, var(--c-positive) 50%, transparent);
+  color: var(--c-positive);
+}
+
+/* ---------------- Chart containers ---------------- */
+.chart-wrap {
+  position: relative;
+  width: 100%;
+}
+.chart-wrap canvas { width: 100% !important; }
+.chart-caption {
+  font-size: var(--fs-small);
+  color: var(--c-text-faint);
+  margin-top: var(--space-3);
+  margin-bottom: 0;
+}
+
+/* ---------------- Cluster explorer cards ---------------- */
+.cluster-card {
+  background: var(--c-panel);
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--cluster-color, var(--c-brand));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.cluster-card-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--c-text);
+}
+
+.cluster-card-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cluster-card-title .name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.cluster-card-title .share {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.cluster-card-chevron {
+  transition: transform var(--dur-fast) var(--ease-standard);
+  color: var(--c-text-faint);
+  flex: none;
+}
+.cluster-card[data-open="true"] .cluster-card-chevron { transform: rotate(180deg); }
+
+.cluster-card-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-med) var(--ease-standard);
+}
+.cluster-card[data-open="true"] .cluster-card-body {
+  grid-template-rows: 1fr;
+}
+.cluster-card-body-inner {
+  overflow: hidden;
+}
+.cluster-card-content {
+  padding: 0 var(--space-5) var(--space-5);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+.cluster-card-content dt {
+  font-size: var(--fs-micro);
+  color: var(--c-text-faint);
+  font-family: var(--font-mono);
+  margin-bottom: 2px;
+}
+.cluster-card-content dd {
+  margin: 0 0 var(--space-3) 0;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+.cluster-card-content .full-width { grid-column: 1 / -1; }
+.limitation-note {
+  border-left: 2px solid var(--c-flag);
+  padding-left: var(--space-3);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+/* ---------------- Tabs (used in Trends section) ---------------- */
+.tabs {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--c-bg-elevated);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-md);
+  padding: 3px;
+}
+.tab-btn {
+  border: none;
+  background: transparent;
+  color: var(--c-text-muted);
+  padding: 6px 14px;
+  border-radius: calc(var(--radius-md) - 2px);
+  font-size: var(--fs-small);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
+}
+.tab-btn.is-active {
+  background: var(--c-panel);
+  color: var(--c-text);
+}
+
+/* ---------------- Theme toggle switch ---------------- */
+.theme-toggle {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-elevated);
+  cursor: pointer;
+  flex: none;
+}
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-brand);
+  transition: transform var(--dur-fast) var(--ease-standard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+[data-theme="light"] .theme-toggle-thumb { transform: translateX(18px); }
+.theme-toggle-thumb svg { width: 12px; height: 12px; color: #211605; }
+
+/* ---------------- Form (predictor) ---------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+}
+.field label {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  display: flex;
+  justify-content: space-between;
+}
+.field output {
+  font-family: var(--font-mono);
+  color: var(--c-text);
+  font-weight: 500;
+}
+.field input[type="range"] {
+  width: 100%;
+  accent-color: var(--c-brand);
+}
+.field select, .field input[type="text"], .field input[type="number"] {
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-bg-elevated);
+  color: var(--c-text);
+}
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+/* ---------------- Predictor result panel ---------------- */
+.result-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.result-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--c-bg-elevated);
+  border-left: 3px solid var(--result-color, var(--c-brand));
+}
+.result-dot {
+  width: 12px; height: 12px; border-radius: 50%; flex: none;
+  background: var(--result-color, var(--c-brand));
+}
+.result-summary .name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.confidence-bar-track {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--c-border);
+  overflow: hidden;
+}
+.confidence-bar-fill {
+  height: 100%;
+  background: var(--c-accent);
+  border-radius: 4px;
+  transition: width var(--dur-slow) var(--ease-standard);
+  width: 0%;
+}
+
+/* ---------------- Notices ---------------- */
+.notice {
+  background: var(--c-flag-soft);
+  border: 1px solid var(--c-flag); /* fallback for browsers without color-mix() */
+  border: 1px solid color-mix(in srgb, var(--c-flag) 35%, transparent);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--c-text);
+}
+.notice strong { color: var(--c-flag); }
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ---------------- Legend ---------------- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+.legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+/* ---------------- Footer ---------------- */
+.site-footer {
+  border-top: 1px solid var(--c-border);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  font-size: var(--fs-small);
+  color: var(--c-text-faint);
+}

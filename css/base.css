@@ -1,0 +1,96 @@
+/**
+ * base.css
+ * Reset + typography foundations. No component-specific rules here.
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  transition: background var(--dur-med) var(--ease-standard), color var(--dur-med) var(--ease-standard);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 var(--space-2) 0;
+  color: var(--c-text);
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+p { margin: 0 0 var(--space-3) 0; max-width: 68ch; color: var(--c-text-muted); }
+
+a { color: var(--c-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+ul, ol { margin: 0; padding-left: 1.2em; color: var(--c-text-muted); }
+li { margin-bottom: var(--space-1); }
+
+button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+
+svg { display: block; }
+
+/* Visible keyboard focus everywhere - required for accessibility, never
+   suppressed with outline:none without a replacement. */
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip link: hidden until focused, first tab stop on the page. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--c-accent);
+  color: #04211d;
+  padding: var(--space-2) var(--space-4);
+  z-index: 1000;
+  border-radius: 0 0 var(--radius-sm) 0;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* Small reusable text utilities */
+.eyebrow-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--c-text-faint);
+  letter-spacing: 0.02em;
+}
+
+.text-muted { color: var(--c-text-muted); }
+
+::selection {
+  background: var(--c-accent-soft);
+  color: var(--c-text);
+}
+
+/* Scrollbar theming (progressive enhancement - not required for function) */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--c-border);
+  border-radius: 6px;
+}

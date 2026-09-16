@@ -1,0 +1,51 @@
+/**
+ * responsive.css
+ * Breakpoints, largest to smallest. The app shell shifts from a fixed
+ * sidebar (desktop) to an off-canvas drawer (tablet/mobile) at 960px.
+ */
+
+@media (max-width: 1180px) {
+  .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 960px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .main { grid-column: 1; }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  body.nav-open .sidebar {
+    transform: translateX(0);
+  }
+
+  .menu-toggle { display: inline-flex; }
+
+  .grid-2 { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  .content { padding: var(--space-5) var(--space-4) var(--space-7); }
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: 1fr; }
+  .cluster-card-content { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+  h1 { font-size: 1.5rem; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .topbar { padding: 0 var(--space-3); }
+  .topbar-title { font-size: 0.95rem; }
+}
+
+/* Print: flatten the app shell to a single readable column. */
+@media print {
+  .sidebar, .topbar-actions, .menu-toggle { display: none; }
+  .app-shell { grid-template-columns: 1fr; }
+  .main { grid-column: 1; }
+  body { background: #fff; color: #000; }
+}

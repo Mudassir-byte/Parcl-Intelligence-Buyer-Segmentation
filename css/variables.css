@@ -1,0 +1,95 @@
+/**
+ * variables.css
+ * Design tokens for the Parcl Buyer Segmentation dashboard.
+ * Every other stylesheet reads from these custom properties instead of
+ * hardcoding values, so the palette/type scale/spacing stay consistent
+ * and themeable (see the [data-theme="light"] override block below).
+ */
+
+:root {
+  /* ---- Color: dark theme (default) ---- */
+  --c-bg: #0b1424;
+  --c-bg-elevated: #101d33;
+  --c-panel: #14213d;
+  --c-panel-hover: #1b2c4c;
+  --c-border: rgba(212, 199, 173, 0.14);
+  --c-text: #eef1f6;
+  --c-text-muted: #9aa6b8;
+  --c-text-faint: #6c7890;
+
+  --c-brand: #b08d57; /* brass - ownership / premium cue, Parcl brand accent */
+  --c-brand-soft: rgba(176, 141, 87, 0.16);
+  --c-accent: #2fb8a6; /* teal - data / analytics signal */
+  --c-accent-soft: rgba(47, 184, 166, 0.14);
+  --c-flag: #c1666b; /* dusty rust - used only for "needs attention" states */
+  --c-flag-soft: rgba(193, 102, 107, 0.14);
+
+  /* Cluster identity colors (semantic: brand = high-value tier,
+     flag = lower satisfaction, accent = higher satisfaction) */
+  --c-cluster-0: var(--c-brand);
+  --c-cluster-1: var(--c-flag);
+  --c-cluster-2: var(--c-accent);
+
+  --c-positive: #6fbf8b;
+  --c-shadow: rgba(3, 7, 15, 0.45);
+
+  /* ---- Type ---- */
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --fs-h1: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem);
+  --fs-h2: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
+  --fs-h3: 1.1rem;
+  --fs-body: 0.95rem;
+  --fs-small: 0.82rem;
+  --fs-micro: 0.72rem;
+
+  /* ---- Layout ---- */
+  --sidebar-w: 232px;
+  --topbar-h: 64px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --container-max: 1320px;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-med: 320ms;
+  --dur-slow: 600ms;
+}
+
+/* ---- Light theme override (toggled via data-theme attribute on <html>) ---- */
+[data-theme="light"] {
+  --c-bg: #f6f4ee;
+  --c-bg-elevated: #ffffff;
+  --c-panel: #ffffff;
+  --c-panel-hover: #f1ede2;
+  --c-border: rgba(27, 29, 34, 0.1);
+  --c-text: #1b1d22;
+  --c-text-muted: #565b64;
+  --c-text-faint: #85899;
+  --c-shadow: rgba(27, 29, 34, 0.12);
+  --c-brand-soft: rgba(176, 141, 87, 0.12);
+  --c-accent-soft: rgba(47, 184, 166, 0.1);
+  --c-flag-soft: rgba(193, 102, 107, 0.1);
+}
+
+/* Respect user motion preferences globally - individual animation files
+   also check this, but setting it here keeps intent visible in one place. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-med: 0ms;
+    --dur-slow: 0ms;
+  }
+}
